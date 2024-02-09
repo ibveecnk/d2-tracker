@@ -1,0 +1,6 @@
+.venv/
+*.csv
+*.png
+*.gif
+*.env
+.DS_Store

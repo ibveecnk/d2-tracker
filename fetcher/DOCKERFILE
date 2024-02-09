@@ -1,0 +1,26 @@
+FROM python:3.10-slim
+
+# Set the working directory
+WORKDIR /app
+
+# Copy the current directory contents into the container at /app
+COPY fetcher/main.py /app
+COPY fetcher/requirements.txt /app
+
+# Unbuffer stdout and stderr
+ENV PYHTONUNBUFFERED=1
+
+# update cache
+RUN apt-get update
+
+# required for pytesseract
+RUN apt-get -y install tesseract-ocr 
+
+# required for opencv
+RUN apt-get -y install ffmpeg libsm6 libxext6
+
+# Install any needed packages specified in requirements.txt
+RUN pip install --no-cache-dir -r requirements.txt
+
+# Start main.py
+CMD ["python", "main.py"]
